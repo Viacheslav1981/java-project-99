@@ -18,6 +18,6 @@ WORKDIR /
 
 COPY / .
 
-RUN /gradlew --no-daemon build
+RUN gradle installDist
 
 CMD /build/install/app/bin/app
