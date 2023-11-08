@@ -18,6 +18,6 @@ WORKDIR java-project-99
 
 COPY ./ .
 
-RUN gradle assemble
+RUN gradle init
 
 CMD build/install/app/bin/app
