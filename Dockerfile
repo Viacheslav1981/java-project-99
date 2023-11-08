@@ -20,4 +20,4 @@ COPY ./ .
 
 RUN gradle installDist
 
-CMD build/install/demo/bin
+CMD build/install/demo/bin/demo
