@@ -1,24 +1,23 @@
 FROM eclipse-temurin:20-jdk
+FROM eclipse-temurin:20-jdk
 
 ARG GRADLE_VERSION=8.4
 
 RUN apt-get update && apt-get install -yq make unzip
 
-RUN wget -q https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip \
-    && unzip gradle-${GRADLE_VERSION}-bin.zip \
-    && rm gradle-${GRADLE_VERSION}-bin.zip
+COPY gradle gradle
+COPY build.gradle.kts .
+COPY settings.gradle.kts .
+COPY gradlew .
 
-ENV GRADLE_HOME=/opt/gradle
+RUN ./gradlew --no-daemon dependencies
 
-RUN mv gradle-${GRADLE_VERSION} ${GRADLE_HOME}
+COPY src src
+COPY config config
 
-ENV PATH=$PATH:$GRADLE_HOME/bin
+RUN ./gradlew --no-daemon build
 
-WORKDIR /
+EXPOSE 8080
 
-COPY ./ .
-
-RUN gradle installDist
-
-CMD build/install/bin
+CMD java -jar build/libs/app-0.0.1-SNAPSHOT.jar
 
