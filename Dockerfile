@@ -8,7 +8,6 @@ RUN apt-get update && apt-get install -yq make unzip
 COPY gradle gradle
 COPY build.gradle.kts .
 COPY settings.gradle.kts .
-COPY gradlew .
 
 RUN ./gradle --no-daemon dependencies
 
