@@ -7,9 +7,7 @@ RUN apt-get update && apt-get install -yq make unzip
 COPY build.gradle.kts .
 COPY settings.gradle.kts .
 
-RUN ./gradlew --no-daemon dependencies
-
-RUN ./gradlew --no-daemon build
+RUN gradle installDist
 
 EXPOSE 8080
 
