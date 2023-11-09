@@ -5,14 +5,12 @@ ARG GRADLE_VERSION=8.4
 
 RUN apt-get update && apt-get install -yq make unzip
 
-COPY gradle gradle
 COPY build.gradle.kts .
 COPY settings.gradle.kts .
 
 RUN ./gradle --no-daemon dependencies
 
 RUN ./gradle --no-daemon build
-
 
 EXPOSE 8080
 
