@@ -13,6 +13,8 @@ java {
 	sourceCompatibility = JavaVersion.VERSION_20
 }
 
+application { mainClass.set("hexlet.code.AppApplication") }
+
 repositories {
 	mavenCentral()
 }
