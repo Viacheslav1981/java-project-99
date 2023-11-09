@@ -18,7 +18,7 @@ WORKDIR /
 
 COPY ./ .
 
-RUN gradle installDist
+RUN gradle build
 
 EXPOSE 8080
 
