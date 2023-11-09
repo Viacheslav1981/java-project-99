@@ -20,5 +20,5 @@ COPY ./ .
 
 RUN gradle installDist
 
-CMD build/install
+CMD build/install/app
 
