@@ -11,7 +11,6 @@ COPY settings.gradle.kts .
 
 RUN ./gradle --no-daemon dependencies
 
-
 RUN ./gradle --no-daemon build
 
 EXPOSE 8080
