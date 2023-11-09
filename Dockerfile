@@ -10,10 +10,10 @@ COPY build.gradle.kts .
 COPY settings.gradle.kts .
 COPY gradlew .
 
-RUN ./gradlew --no-daemon dependencies
+RUN ./gradle --no-daemon dependencies
 
 
-RUN ./gradlew --no-daemon build
+RUN ./gradle --no-daemon build
 
 EXPOSE 8080
 
