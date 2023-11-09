@@ -20,5 +20,5 @@ COPY ./ .
 
 RUN gradle installDist
 
-CMD build/install/app
+CMD java -jar build/libs/app-0.0.1-SNAPSHOT-plain.jar
 
