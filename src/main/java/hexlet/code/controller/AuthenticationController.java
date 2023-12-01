@@ -1,4 +1,5 @@
 package hexlet.code.controller;
+
 import hexlet.code.dto.AuthRequest;
 import hexlet.code.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,24 @@ public class AuthenticationController {
 
     @PostMapping("")
     public String create(@RequestBody AuthRequest authRequest) {
+
+        var user = authRequest.getUsername();
+        var pass = authRequest.getPassword();
+
         var authentication = new UsernamePasswordAuthenticationToken(
                 authRequest.getUsername(), authRequest.getPassword());
 
+
+        var us = authentication.getPrincipal();
+        var pas = authentication.getCredentials();
+
         authenticationManager.authenticate(authentication);
 
+        boolean isAuth = authentication.isAuthenticated();
+
         var token = jwtUtils.generateToken(authRequest.getUsername());
+
+
         return token;
     }
 }

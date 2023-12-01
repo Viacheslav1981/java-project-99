@@ -8,6 +8,7 @@ plugins {
 	id("org.springframework.boot") version "3.1.5"
 	id("io.spring.dependency-management") version "1.1.3"
 	id("io.freefair.lombok") version "8.4"
+	id("io.sentry.jvm.gradle") version "3.14.0"
 }
 
 group = "hexlet.code"
@@ -35,6 +36,8 @@ dependencies {
 
 	implementation("net.datafaker:datafaker:2.0.1")
 	implementation("org.instancio:instancio-junit:3.3.0")
+
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
 
 
 	testImplementation("org.springframework.security:spring-security-test")

@@ -48,20 +48,32 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                      //  .requestMatchers(mvcMatcherBuilder.pattern("/index.html")).permitAll()
-                       // .requestMatchers(mvcMatcherBuilder.pattern("/assets/**")).permitAll()
-                      //  .requestMatchers(mvcMatcherBuilder.pattern("/")).permitAll()
+                        //  .requestMatchers(mvcMatcherBuilder.pattern("/index.html")).permitAll()
+                        // .requestMatchers(mvcMatcherBuilder.pattern("/assets/**")).permitAll()
+                        //  .requestMatchers(mvcMatcherBuilder.pattern("/")).permitAll()
+
+                        .requestMatchers(mvcMatcherBuilder.pattern("/index.html")).permitAll()
+                        .requestMatchers(mvcMatcherBuilder.pattern("/assets/**")).permitAll()
+                        .requestMatchers(mvcMatcherBuilder.pattern("/")).permitAll()
+
                         .requestMatchers(mvcMatcherBuilder.pattern("/welcome")).permitAll()
-                       // .requestMatchers(mvcMatcherBuilder.pattern(GET,"/api/users")).permitAll()
+                        .requestMatchers(mvcMatcherBuilder.pattern(POST, "/api/login")).permitAll()
+                        .requestMatchers(mvcMatcherBuilder.pattern(POST, "/api/users")).permitAll()
+
+                        .requestMatchers(mvcMatcherBuilder.pattern(GET, "/api/users")).permitAll()
+                        .requestMatchers(mvcMatcherBuilder.pattern(GET, "/api/users/{id}")).permitAll()
+                        .requestMatchers(mvcMatcherBuilder.pattern(PUT, "/api/users/{id}")).permitAll()
+                        .requestMatchers(mvcMatcherBuilder.pattern(DELETE, "/api/users/{id}")).permitAll()
+
 
                         //  .requestMatchers(mvcMatcherBuilder.pattern(baseUrl + "/login")).permitAll()
-                      //  .requestMatchers(mvcMatcherBuilder.pattern("/api/login")).permitAll()
-                      //  .requestMatchers(mvcMatcherBuilder.pattern(POST, "/api/login")).permitAll()
-                       // .requestMatchers(mvcMatcherBuilder.pattern("/h2console/")).permitAll()
-                      //  .requestMatchers(mvcMatcherBuilder.pattern(POST,"/api/users")).permitAll()
-                     //   .requestMatchers(mvcMatcherBuilder.pattern(POST, baseUrl + "/users")).permitAll()
-                     //   .requestMatchers(mvcMatcherBuilder.pattern(POST, baseUrl + "/users")).permitAll()
-                     //   .requestMatchers(mvcMatcherBuilder.pattern(GET, baseUrl + "/task_statuses")).permitAll()
+                        //  .requestMatchers(mvcMatcherBuilder.pattern("/api/login")).permitAll()
+                        //  .requestMatchers(mvcMatcherBuilder.pattern(POST, "/api/login")).permitAll()
+                        // .requestMatchers(mvcMatcherBuilder.pattern("/h2console/")).permitAll()
+                        //  .requestMatchers(mvcMatcherBuilder.pattern(POST,"/api/users")).permitAll()
+                        //   .requestMatchers(mvcMatcherBuilder.pattern(POST, baseUrl + "/users")).permitAll()
+                        //   .requestMatchers(mvcMatcherBuilder.pattern(POST, baseUrl + "/users")).permitAll()
+                        //   .requestMatchers(mvcMatcherBuilder.pattern(GET, baseUrl + "/task_statuses")).permitAll()
 
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
