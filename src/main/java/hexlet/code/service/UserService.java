@@ -8,7 +8,8 @@ import hexlet.code.exception.ResourceNotFoundException;
 import hexlet.code.mapper.UserMapper;
 import hexlet.code.repository.UserRepository;
 import hexlet.code.utils.UserUtils;
-import jakarta.validation.ConstraintViolationException;
+//import jakarta.validation.ConstraintViolationException;
+import hexlet.code.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -63,10 +64,10 @@ public class UserService {
         var userDataEmail = userData.getEmail();
         if (userDataEmail != null) {
             var findUser = userRepository.findByEmail(userDataEmail);
-           // if (findUser.isPresent()) {
-            //    throw new ConstraintViolationException(
-           //             String.format("User with email %s already exists", userDataEmail.get()));
-           // }
+            if (findUser.isPresent() && id != user.getId()) {
+                throw new ConstraintViolationException(
+                        String.format("User with email %s already exists", userDataEmail));
+            }
         }
         userMapper.update(userData, user);
         user.setPassword(passwordEncoder.encode(user.getPassword()));

@@ -125,5 +125,31 @@ public class UserControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    public void testUpdate() throws Exception {
+        userRepository.save(testUser);
+
+        var token = jwt().jwt(builder -> builder.subject(testUser.getEmail()));
+
+        var newUserModel = Instancio.of(modelGenerator.getUserModel()).create();
+        var dto = mapper.mapToCreateDTO(newUserModel);
+
+        var request = put(url + "/{id}", testUser.getId()).with(token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(om.writeValueAsString(dto));
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk());
+
+        var user = userRepository.findById(
+                testUser.getId()).orElseThrow();
+
+        assertThat(user).isNotNull();
+        assertThat(user.getFirstName()).isEqualTo(dto.getFirstName());
+        assertThat(user.getLastName()).isEqualTo(dto.getLastName());
+        assertThat(user.getEmail()).isEqualTo(dto.getEmail());
+        assertThat(user.getPassword()).isNotEqualTo(dto.getPassword());
+    }
+
 
 }
