@@ -8,6 +8,7 @@ spring:
       enabled: always
   profiles:
     default: development
+  environment: ${APP_ENV}
 rsa:
   private-key: classpath:certs/private.pem
   public-key: classpath:certs/public.pem
