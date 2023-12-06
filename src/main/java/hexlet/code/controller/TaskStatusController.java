@@ -1,10 +1,7 @@
 package hexlet.code.controller;
 
 
-import hexlet.code.dto.TaskStatusCreateDTO;
-import hexlet.code.dto.TaskStatusDTO;
-import hexlet.code.dto.UserCreateDTO;
-import hexlet.code.dto.UserDTO;
+import hexlet.code.dto.*;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
 import hexlet.code.service.TaskStatusService;
@@ -40,5 +37,24 @@ public class TaskStatusController {
                 .header("X-Total-Count", String.valueOf(taskStatuses.size()))
                 .body(taskStatuses);
     }
+
+    @GetMapping(path = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public TaskStatusDTO getTaskStatus(@PathVariable Long id) {
+        return taskStatusService.findById(id);
+    }
+
+    @PutMapping(path = "/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public TaskStatusDTO update(@PathVariable Long id, @RequestBody TaskStatusUpdateDTO taskStatusUpdateDTO){
+        return taskStatusService.update(taskStatusUpdateDTO, id);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        taskStatusService.delete(id);
+    }
+
 
 }
