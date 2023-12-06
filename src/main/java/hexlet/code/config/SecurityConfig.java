@@ -58,13 +58,13 @@ public class SecurityConfig {
                         .requestMatchers(mvcMatcherBuilder.pattern(POST, "/api/login")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern(POST, "/api/users")).permitAll()
 
-                     //   .requestMatchers(mvcMatcherBuilder.pattern(GET, "/api/users")).permitAll()
-                     //   .requestMatchers(mvcMatcherBuilder.pattern(GET, "/api/users/{id}")).permitAll()
-                     //   .requestMatchers(mvcMatcherBuilder.pattern(PUT, "/api/users/{id}")).permitAll()
-                    //    .requestMatchers(mvcMatcherBuilder.pattern(DELETE, "/api/users/{id}")).permitAll()
+                        .requestMatchers(mvcMatcherBuilder.pattern(GET, "/api/users")).permitAll()
+                        .requestMatchers(mvcMatcherBuilder.pattern(GET, "/api/users/{id}")).permitAll()
+                        .requestMatchers(mvcMatcherBuilder.pattern(PUT, "/api/users/{id}")).permitAll()
+                        .requestMatchers(mvcMatcherBuilder.pattern(DELETE, "/api/users/{id}")).permitAll()
 
 
-                       // .requestMatchers(mvcMatcherBuilder.pattern(GET, "/api/task_statuses")).permitAll()
+                        .requestMatchers(mvcMatcherBuilder.pattern(GET, "/api/task_statuses")).permitAll()
 
 
                         //  .requestMatchers(mvcMatcherBuilder.pattern(baseUrl + "/login")).permitAll()
