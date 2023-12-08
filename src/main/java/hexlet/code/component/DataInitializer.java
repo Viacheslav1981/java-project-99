@@ -1,6 +1,5 @@
 package hexlet.code.component;
 
-import hexlet.code.dto.UserCreateDTO;
 import hexlet.code.mapper.UserMapper;
 import hexlet.code.model.TaskStatus;
 import hexlet.code.model.User;
