@@ -27,6 +27,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -180,6 +181,19 @@ public class TaskControllerTest {
         assertThat(task.getAssignee().getId()).isEqualTo(dto.getAssigneeId());
       //  assertThat(task.getLabels().stream().map(Label::getId).collect(Collectors.toSet()))
          //       .isEqualTo(dto.getTaskLabelIds());
+    }
+
+    @Test
+    public void testDestroyTask() throws Exception {
+
+        var request = delete(url + "/{id}", testTask.getId()).with(jwt());
+        mockMvc.perform(request)
+                .andExpect(status().isNoContent());
+
+        var task = taskRepository.findById(
+                testTask.getId()).orElse(null);
+
+        assertThat(task).isNull();
     }
 
 

@@ -1,8 +1,10 @@
 package hexlet.code.component;
 
 import hexlet.code.mapper.UserMapper;
+import hexlet.code.model.Label;
 import hexlet.code.model.TaskStatus;
 import hexlet.code.model.User;
+import hexlet.code.repository.LabelRepository;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
 import hexlet.code.service.UserService;
@@ -24,6 +26,9 @@ public class DataInitializer implements ApplicationRunner {
 
     @Autowired
     private final TaskStatusRepository taskStatusRepository;
+
+    @Autowired
+    private final LabelRepository labelRepository;
 
     @Autowired
     private final UserMapper userMapper;
@@ -48,6 +53,16 @@ public class DataInitializer implements ApplicationRunner {
        generatedTaskStatus("ToBeFixed", "to_be_fixed");
        generatedTaskStatus("ToPublish", "to_publish");
        generatedTaskStatus("Published", "published");
+
+       generateLabels("feature");
+       generateLabels("bug");
+
+    }
+
+    private void generateLabels(String name) {
+        var label = new Label();
+        label.setName(name);
+        labelRepository.save(label);
 
     }
 
