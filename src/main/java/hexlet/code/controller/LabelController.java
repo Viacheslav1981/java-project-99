@@ -54,5 +54,4 @@ public class LabelController {
         labelService.delete(id);
     }
 
-
 }
