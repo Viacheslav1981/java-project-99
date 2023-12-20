@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 )
 public abstract class TaskMapper {
 
-    private Collectors collectors;
     @Autowired
     private LabelRepository labelRepository;
 
