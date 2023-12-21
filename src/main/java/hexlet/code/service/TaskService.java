@@ -2,6 +2,7 @@ package hexlet.code.service;
 
 import hexlet.code.dto.task.TaskCreateDTO;
 import hexlet.code.dto.task.TaskDTO;
+import hexlet.code.dto.task.TaskParamsDTO;
 import hexlet.code.dto.task.TaskUpdateDTO;
 import hexlet.code.dto.taskStatus.TaskStatusDTO;
 import hexlet.code.dto.user.UserDTO;
@@ -12,6 +13,7 @@ import hexlet.code.repository.LabelRepository;
 import hexlet.code.repository.TaskRepository;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
+import hexlet.code.specification.TaskSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,12 +39,13 @@ public class TaskService {
     @Autowired
     private TaskStatusRepository taskStatusRepository;
 
-    // @Autowired
-    //  private TaskSpecification specBuilder;
+     @Autowired
+      private TaskSpecification specBuilder;
 
 
-    public List<TaskDTO> getAll() {
-        var tasks = taskRepository.findAll();
+    public List<TaskDTO> getAll(TaskParamsDTO taskParamsDTO) {
+        var spec = specBuilder.build(taskParamsDTO);
+        var tasks = taskRepository.findAll(spec);
         return tasks.stream()
                 .map(taskMapper::map)
                 .toList();

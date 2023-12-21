@@ -2,6 +2,7 @@ package hexlet.code.controller;
 
 import hexlet.code.dto.task.TaskCreateDTO;
 import hexlet.code.dto.task.TaskDTO;
+import hexlet.code.dto.task.TaskParamsDTO;
 import hexlet.code.dto.task.TaskUpdateDTO;
 import hexlet.code.dto.user.UserDTO;
 import hexlet.code.dto.user.UserUpdateDTO;
@@ -30,10 +31,9 @@ public class TaskController {
     }
 
     @GetMapping(path = "")
-    // @SecurityRequirement(name = "JWT")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<TaskDTO>> getAll() {
-        var tasks = taskService.getAll();
+    public ResponseEntity<List<TaskDTO>> getAll(TaskParamsDTO paramsDTO) {
+        var tasks = taskService.getAll(paramsDTO);
         return ResponseEntity.ok()
                 .header("X-Total-Count", String.valueOf(tasks.size()))
                 .body(tasks);

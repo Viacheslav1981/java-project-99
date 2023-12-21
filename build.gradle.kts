@@ -30,21 +30,19 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-configuration-processor")
 	implementation("org.openapitools:jackson-databind-nullable:0.2.6")
-
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
-
 	implementation("net.datafaker:datafaker:2.0.1")
 	implementation("org.instancio:instancio-junit:3.3.0")
-
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
-
 
 	testImplementation("org.springframework.security:spring-security-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation(platform("org.junit:junit-bom:5.10.0"))
-	testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+	testImplementation(platform("org.junit:junit-bom:5.9.2"))
+	testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
+	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	testImplementation("net.javacrumbs.json-unit:json-unit-assertj:3.2.2")
+
 
 }
 
