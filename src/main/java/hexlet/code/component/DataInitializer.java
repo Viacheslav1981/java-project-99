@@ -42,7 +42,7 @@ public class DataInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        /*
+
         if (userRepository.findByEmail("hexlet@example.com").isEmpty()) {
             var email = "hexlet@example.com";
             var userData = new User();
@@ -50,9 +50,17 @@ public class DataInitializer implements ApplicationRunner {
             userData.setPassword(passwordEncoder.encode("qwerty"));
             userRepository.save(userData);
 
+            generatedTaskStatus("Draft", "draft");
+            generatedTaskStatus("ToReview", "to_review");
+            generatedTaskStatus("ToBeFixed", "to_be_fixed");
+            generatedTaskStatus("ToPublish", "to_publish");
+            generatedTaskStatus("Published", "published");
+
+            generateLabels("feature");
+            generateLabels("bug");
+
         }
 
-         */
         /*
         var email = "hexlet@example.com";
         var userData = new User();
@@ -60,16 +68,16 @@ public class DataInitializer implements ApplicationRunner {
         userData.setPassword(passwordEncoder.encode("qwerty"));
         userRepository.save(userData);
 
+        generatedTaskStatus("Draft", "draft");
+        generatedTaskStatus("ToReview", "to_review");
+        generatedTaskStatus("ToBeFixed", "to_be_fixed");
+        generatedTaskStatus("ToPublish", "to_publish");
+        generatedTaskStatus("Published", "published");
+
+        generateLabels("feature");
+        generateLabels("bug");
+
          */
-
-       generatedTaskStatus("Draft", "draft");
-       generatedTaskStatus("ToReview", "to_review");
-       generatedTaskStatus("ToBeFixed", "to_be_fixed");
-       generatedTaskStatus("ToPublish", "to_publish");
-       generatedTaskStatus("Published", "published");
-
-       generateLabels("feature");
-       generateLabels("bug");
 
     }
 
