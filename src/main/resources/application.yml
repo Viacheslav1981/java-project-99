@@ -7,7 +7,7 @@ spring:
     ansi:
       enabled: always
   profiles:
-    active: ${APP_ENV}
+    active: ${SPRING_PROFILES_ACTIVE:development}
 rsa:
   private-key: classpath:certs/private.pem
   public-key: classpath:certs/public.pem
