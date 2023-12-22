@@ -42,6 +42,7 @@ public class DataInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        /*
         if (userRepository.findByEmail("hexlet@example.com").isEmpty()) {
             var email = "hexlet@example.com";
             var userData = new User();
@@ -50,6 +51,8 @@ public class DataInitializer implements ApplicationRunner {
             userRepository.save(userData);
 
         }
+
+         */
         /*
         var email = "hexlet@example.com";
         var userData = new User();
