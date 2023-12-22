@@ -42,11 +42,22 @@ public class DataInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        if (userRepository.findByEmail("hexlet@example.com").isEmpty()) {
+            var email = "hexlet@example.com";
+            var userData = new User();
+            userData.setEmail(email);
+            userData.setPassword(passwordEncoder.encode("qwerty"));
+            userRepository.save(userData);
+
+        }
+        /*
         var email = "hexlet@example.com";
         var userData = new User();
         userData.setEmail(email);
         userData.setPassword(passwordEncoder.encode("qwerty"));
         userRepository.save(userData);
+
+         */
 
        generatedTaskStatus("Draft", "draft");
        generatedTaskStatus("ToReview", "to_review");
