@@ -33,7 +33,7 @@ public class LabelService {
         return labelMapper.map(label);
     }
 
-    public LabelDTO create(LabelCreateDTO labelCreateDTO){
+    public LabelDTO create(LabelCreateDTO labelCreateDTO) {
         var label = labelMapper.map(labelCreateDTO);
 
         labelRepository.save(label);
@@ -41,7 +41,7 @@ public class LabelService {
 
     }
 
-    public LabelDTO update(LabelUpdateDTO labelUpdateDTO, long id){
+    public LabelDTO update(LabelUpdateDTO labelUpdateDTO, long id) {
         var label = labelRepository.findById(id).orElseThrow();
 
         label.setName(labelUpdateDTO.getName());
@@ -50,10 +50,9 @@ public class LabelService {
         return labelMapper.map(label);
     }
 
-    public void delete(long id){
+    public void delete(long id) {
         labelRepository.deleteById(id);
     }
 
-
-
 }
+
