@@ -1,6 +1,11 @@
 package hexlet.code.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -9,7 +14,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Date;
-import java.util.List;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -18,7 +22,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "labels")
 @EntityListeners(AuditingEntityListener.class)
-public class Label implements BaseEntity{
+public class Label implements BaseEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
@@ -31,8 +35,5 @@ public class Label implements BaseEntity{
     @CreatedDate
     private Date createdAt;
 
-    //@ManyToMany(mappedBy = "labels")
-    //private List<Task> tasks;
-
-   // public Label() {}
 }
+

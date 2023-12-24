@@ -22,7 +22,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
-public class TaskStatus implements BaseEntity{
+public class TaskStatus implements BaseEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -42,4 +42,5 @@ public class TaskStatus implements BaseEntity{
     private Date createdAt;
 
 }
+
 
