@@ -23,6 +23,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.HashMap;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -196,6 +197,21 @@ public class TaskControllerTest {
         assertThat(task.getAssignee().getId()).isEqualTo(dto.getAssigneeId());
         assertThat(task.getLabels().stream().map(Label::getId).collect(Collectors.toSet()))
                 .isEqualTo(dto.getTaskLabelIds());
+    }
+
+    @Test
+    public void testUpdateCheck() throws Exception {
+        var data = new HashMap<String, String>();
+        var name = "New Task Name";
+        data.put("name", name);
+
+        var request = put("/api/tasks/" + testTask.getId()).with(jwt())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(om.writeValueAsString(data));
+
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk());
     }
 
     @Test

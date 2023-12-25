@@ -78,21 +78,32 @@ public class TaskService {
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Task with id %s not found", id)));
 
         var taskStatusSlug = taskUpdateDTO.getStatus();
-        var taskStatus = taskStatusRepository.findBySlug(taskStatusSlug)
-                .orElseThrow();
-        task.setTaskStatus(taskStatus);
+        if (taskStatusSlug != null) {
+            var taskStatus = taskStatusRepository.findBySlug(taskStatusSlug)
+                    .orElseThrow();
+            task.setTaskStatus(taskStatus);
+
+        }
+     //   var taskStatus = taskStatusRepository.findBySlug(String.valueOf(taskStatusSlug))
+    //            .orElseThrow();
+    //    task.setTaskStatus(taskStatus);
 
         var taskDataUserId = taskUpdateDTO.getAssigneeId();
-        if (taskDataUserId != 0) {
+        if (taskDataUserId != null) {
             var assignee = userRepository.findById(taskDataUserId)
                     .orElseThrow();
             task.setAssignee(assignee);
         }
 
 
+
         var taskLabelsIds = taskUpdateDTO.getTaskLabelIds();
-        var labelSet = taskMapper.labelSet(taskLabelsIds);
-        task.setLabels(labelSet);
+       if (taskLabelsIds != null) {
+           var labelSet = taskMapper.labelSet(taskLabelsIds);
+           task.setLabels(labelSet);
+
+       }
+
 
         taskMapper.update(taskUpdateDTO, task);
         taskRepository.save(task);
