@@ -47,7 +47,7 @@ public class Task implements BaseEntity {
 
     @ManyToOne
     private User assignee;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Set<Label> labels;
 
     @CreatedDate

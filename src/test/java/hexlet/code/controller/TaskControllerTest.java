@@ -92,7 +92,7 @@ public class TaskControllerTest {
         taskRepository.deleteAll();
         userRepository.deleteAll();
         taskStatusRepository.deleteAll();
-        //  labelRepository.deleteAll();
+        labelRepository.deleteAll();
     }
 
     private Label generatedTestLabel() {
@@ -175,7 +175,7 @@ public class TaskControllerTest {
 
         newTaskModel.setAssignee(newTestUser);
         newTaskModel.setTaskStatus(newTestTaskStatus);
-        //  newTaskModel.setLabels(Set.of(generatedTestLabel(), generatedTestLabel()));
+        newTaskModel.setLabels(Set.of(generatedTestLabel(), generatedTestLabel()));
         var dto = mapper.mapToCreateDTO(newTaskModel);
 
         var request = put(url + "/{id}", testTask.getId()).with(jwt())
