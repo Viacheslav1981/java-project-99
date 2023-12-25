@@ -76,7 +76,7 @@ tasks.jacocoTestReport {
     }
 }
 
-if (System.getenv("APP_ENV").equals("production")) {
+if (System.getenv("APP_ENV") == "production") {
     sentry {
         includeSourceContext = true
         projectName = "java-spring-boot"
