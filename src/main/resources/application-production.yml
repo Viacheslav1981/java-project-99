@@ -4,9 +4,3 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: ${JDBC_DATABASE_USERNAME}
     password: ${JDBC_DATABASE_PASSWORD}
-  sentry:
-    dsn: https://5694e60e9d608b9372b1ede62b68bf54@o4506455882072064.ingest.sentry.io/4506455893409792
-    # Set traces-sample-rate to 1.0 to capture 100% of transactions for performance monitoring.
-    # We recommend adjusting this value in production.
-    traces-sample-rate: 1.0
-    environment: production
