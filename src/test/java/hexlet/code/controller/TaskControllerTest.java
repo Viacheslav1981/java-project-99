@@ -2,9 +2,11 @@ package hexlet.code.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hexlet.code.mapper.TaskMapper;
+import hexlet.code.model.Label;
 import hexlet.code.model.Task;
 import hexlet.code.model.TaskStatus;
 import hexlet.code.model.User;
+import hexlet.code.repository.LabelRepository;
 import hexlet.code.repository.TaskRepository;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
@@ -20,6 +22,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -51,6 +56,9 @@ public class TaskControllerTest {
     private ObjectMapper om;
 
     @Autowired
+    private LabelRepository labelRepository;
+
+    @Autowired
     private TaskMapper mapper;
 
     @Autowired
@@ -75,7 +83,7 @@ public class TaskControllerTest {
         testTask = Instancio.of(modelGenerator.getTaskModel()).create();
         testTask.setTaskStatus(testTaskStatus);
         testTask.setAssignee(testUser);
-      //  testTask.setLabels(Set.of(generatedTestLabel(), generatedTestLabel()));
+        testTask.setLabels(Set.of(generatedTestLabel(), generatedTestLabel()));
         taskRepository.save(testTask);
     }
 
@@ -84,7 +92,14 @@ public class TaskControllerTest {
         taskRepository.deleteAll();
         userRepository.deleteAll();
         taskStatusRepository.deleteAll();
-      //  labelRepository.deleteAll();
+        //  labelRepository.deleteAll();
+    }
+
+    private Label generatedTestLabel() {
+        var testLabel = Instancio.of(modelGenerator.getLabelModel()).create();
+        labelRepository.save(testLabel);
+        return labelRepository.findByName(
+                testLabel.getName()).orElse(null);
     }
 
     @Test
@@ -111,9 +126,9 @@ public class TaskControllerTest {
                 v -> v.node("assignee_id").isEqualTo(testTask.getAssignee().getId()),
                 v -> v.node("title").isEqualTo(testTask.getName()),
                 v -> v.node("content").isEqualTo(testTask.getDescription()),
-                v -> v.node("status").isEqualTo(testTask.getTaskStatus().getSlug())
-              //  v -> v.node("taskLabelIds").isEqualTo(testTask.getLabels().stream()
-               //         .map(Label::getId).collect(Collectors.toSet()))
+                v -> v.node("status").isEqualTo(testTask.getTaskStatus().getSlug()),
+                v -> v.node("taskLabelIds").isEqualTo(testTask.getLabels().stream()
+                        .map(Label::getId).collect(Collectors.toSet()))
         );
     }
 
@@ -123,7 +138,7 @@ public class TaskControllerTest {
         var newTestTask = Instancio.of(modelGenerator.getTaskModel()).create();
         newTestTask.setTaskStatus(testTaskStatus);
         newTestTask.setAssignee(testUser);
-       // newTestTask.setLabels(Set.of(generatedTestLabel(), generatedTestLabel()));
+        newTestTask.setLabels(Set.of(generatedTestLabel(), generatedTestLabel()));
 
         var dto = mapper.mapToCreateDTO(newTestTask);
 
@@ -143,8 +158,8 @@ public class TaskControllerTest {
         assertThat(task.getDescription()).isEqualTo(newTestTask.getDescription());
         assertThat(task.getTaskStatus().getSlug()).isEqualTo(newTestTask.getTaskStatus().getSlug());
         assertThat(task.getAssignee().getId()).isEqualTo(newTestTask.getAssignee().getId());
-       // assertThat(task.getLabels().stream().map(Label::getId).collect(Collectors.toSet()))
-           //     .isEqualTo(newTestTask.getLabels().stream().map(Label::getId).collect(Collectors.toSet()));
+        assertThat(task.getLabels().stream().map(Label::getId).collect(Collectors.toSet()))
+                .isEqualTo(newTestTask.getLabels().stream().map(Label::getId).collect(Collectors.toSet()));
     }
 
     @Test
@@ -160,7 +175,7 @@ public class TaskControllerTest {
 
         newTaskModel.setAssignee(newTestUser);
         newTaskModel.setTaskStatus(newTestTaskStatus);
-      //  newTaskModel.setLabels(Set.of(generatedTestLabel(), generatedTestLabel()));
+        //  newTaskModel.setLabels(Set.of(generatedTestLabel(), generatedTestLabel()));
         var dto = mapper.mapToCreateDTO(newTaskModel);
 
         var request = put(url + "/{id}", testTask.getId()).with(jwt())
@@ -179,8 +194,8 @@ public class TaskControllerTest {
         assertThat(task.getDescription()).isEqualTo(dto.getDescription());
         assertThat(task.getTaskStatus().getSlug()).isEqualTo(dto.getStatus());
         assertThat(task.getAssignee().getId()).isEqualTo(dto.getAssigneeId());
-      //  assertThat(task.getLabels().stream().map(Label::getId).collect(Collectors.toSet()))
-         //       .isEqualTo(dto.getTaskLabelIds());
+        assertThat(task.getLabels().stream().map(Label::getId).collect(Collectors.toSet()))
+                .isEqualTo(dto.getTaskLabelIds());
     }
 
     @Test
@@ -195,7 +210,6 @@ public class TaskControllerTest {
 
         assertThat(task).isNull();
     }
-
 
 
 }
