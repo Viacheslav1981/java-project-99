@@ -1,6 +1,5 @@
 package hexlet.code.controller;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hexlet.code.mapper.UserMapper;
 import hexlet.code.model.User;
