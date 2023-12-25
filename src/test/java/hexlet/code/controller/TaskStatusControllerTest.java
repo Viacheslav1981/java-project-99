@@ -59,12 +59,11 @@ public class TaskStatusControllerTest {
     @BeforeEach
     public void setUp() {
         testTaskStatus = Instancio.of(modelGenerator.getTaskStatusModel()).create();
+        taskStatusRepository.save(testTaskStatus);
     }
 
     @Test
     public void testIndex() throws Exception {
-
-        taskStatusRepository.save(testTaskStatus);
 
         var result = mockMvc.perform(get(url).with(jwt()))
                 .andExpect(status().isOk())
@@ -76,8 +75,6 @@ public class TaskStatusControllerTest {
 
     @Test
     public void testShow() throws Exception {
-
-        taskStatusRepository.save(testTaskStatus);
 
         var request = get(url + "/{id}", testTaskStatus.getId()).with(jwt());
         var result = mockMvc.perform(request)
@@ -94,7 +91,8 @@ public class TaskStatusControllerTest {
     @Test
     public void testCreate() throws Exception {
 
-        var dto = mapper.mapToCreateDTO(testTaskStatus);
+        var newTaskStatusModel = Instancio.of(modelGenerator.getTaskStatusModel()).create();
+        var dto = mapper.mapToCreateDTO(newTaskStatusModel);
 
         var request = post(url).with(jwt())
                 .contentType(MediaType.APPLICATION_JSON)
@@ -112,8 +110,21 @@ public class TaskStatusControllerTest {
     }
 
     @Test
+    public void testCreateTaskStatusWithNotValidName() throws Exception {
+        testTaskStatus.setName("");
+        var dto = mapper.mapToCreateDTO(testTaskStatus);
+
+        var request = post(url).with(jwt())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(om.writeValueAsString(dto));
+
+        mockMvc.perform(request)
+                .andExpect(status().isBadRequest());
+    }
+
+
+    @Test
     public void testUpdate() throws Exception {
-        taskStatusRepository.save(testTaskStatus);
 
         var newTaskStatusModel = Instancio.of(modelGenerator.getTaskStatusModel()).create();
         var dto = mapper.mapToCreateDTO(newTaskStatusModel);
