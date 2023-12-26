@@ -52,6 +52,17 @@ public class TaskService {
         return taskMapper.map(task);
     }
 
+    /*
+    public TaskDTO create(TaskCreateDTO taskData) {
+
+        var task = taskMapper.map(taskData);
+
+        taskRepository.save(task);
+        return taskMapper.map(task);
+    }
+
+     */
+
     public TaskDTO create(TaskCreateDTO taskCreateDTO) {
 
         var task = taskMapper.map(taskCreateDTO);
@@ -61,12 +72,12 @@ public class TaskService {
                 .orElseThrow();
         task.setTaskStatus(taskStatus);
 
-        long taskDataUserId = taskCreateDTO.getAssigneeId();
-        // taskDataUserId
-        if (taskDataUserId != 0) {
+        var taskDataUserId = taskCreateDTO.getAssigneeId();
+        if (taskDataUserId != null) {
             var assignee = userRepository.findById(taskDataUserId)
                     .orElseThrow();
             task.setAssignee(assignee);
+
         } else {
             var assignee = userRepository.findById(1L).get();
             task.setAssignee(assignee);

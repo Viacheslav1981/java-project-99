@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -227,7 +228,7 @@ public class TaskControllerTest {
         assertThat(task).isNull();
     }
 
-    /*
+
     @Test
     public void testCreateWithoutUser() throws Exception {
         var taskStatus = taskStatusRepository.findBySlug("draft").get();
@@ -258,7 +259,7 @@ public class TaskControllerTest {
         assertNotNull(task);
     }
 
-     */
+
 
 
 }
