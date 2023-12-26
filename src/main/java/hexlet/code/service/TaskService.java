@@ -62,12 +62,12 @@ public class TaskService {
         task.setTaskStatus(taskStatus);
 
         long taskDataUserId = taskCreateDTO.getAssigneeId();
-       // taskDataUserId
+        // taskDataUserId
         if (taskDataUserId != 0) {
             var assignee = userRepository.findById(taskDataUserId)
                     .orElseThrow();
             task.setAssignee(assignee);
-        } else{
+        } else {
             var assignee = userRepository.findById(1L).get();
             task.setAssignee(assignee);
         }
@@ -88,9 +88,9 @@ public class TaskService {
             task.setTaskStatus(taskStatus);
 
         }
-     //   var taskStatus = taskStatusRepository.findBySlug(String.valueOf(taskStatusSlug))
-    //            .orElseThrow();
-    //    task.setTaskStatus(taskStatus);
+        //   var taskStatus = taskStatusRepository.findBySlug(String.valueOf(taskStatusSlug))
+        //            .orElseThrow();
+        //    task.setTaskStatus(taskStatus);
 
         var taskDataUserId = taskUpdateDTO.getAssigneeId();
         if (taskDataUserId != null) {
@@ -100,13 +100,12 @@ public class TaskService {
         }
 
 
-
         var taskLabelsIds = taskUpdateDTO.getTaskLabelIds();
-       if (taskLabelsIds != null) {
-           var labelSet = taskMapper.labelSet(taskLabelsIds);
-           task.setLabels(labelSet);
+        if (taskLabelsIds != null) {
+            var labelSet = taskMapper.labelSet(taskLabelsIds);
+            task.setLabels(labelSet);
 
-       }
+        }
 
 
         taskMapper.update(taskUpdateDTO, task);
@@ -120,4 +119,5 @@ public class TaskService {
 
     }
 }
+
 
