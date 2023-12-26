@@ -16,6 +16,7 @@ public class TaskCreateDTO {
 
     @JsonProperty("assignee_id")
     private long assigneeId;
+    //private JsonNullable<Long> assigneeId;
 
     @NotBlank
     @JsonProperty("title")

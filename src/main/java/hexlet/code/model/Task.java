@@ -1,14 +1,6 @@
 package hexlet.code.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.FetchType;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -46,7 +38,9 @@ public class Task implements BaseEntity {
     private TaskStatus taskStatus;
 
     @ManyToOne(optional = false)
+   // @ManyToOne(cascade = CascadeType.MERGE)
     private User assignee;
+  //  private JsonNullable<User> assignee;
     @ManyToMany(cascade = CascadeType.MERGE,
             fetch = FetchType.EAGER)
     private Set<Label> labels;

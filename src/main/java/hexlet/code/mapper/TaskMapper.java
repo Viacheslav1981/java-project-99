@@ -34,6 +34,7 @@ public abstract class TaskMapper {
     @Mapping(target = "labels", source = "taskLabelIds")
     public abstract Task map(TaskCreateDTO dto);
 
+
     public Set<Label> labelSet(Set<Long> labelIds) {
         return labelIds == null ? null
                 : labelIds.stream()

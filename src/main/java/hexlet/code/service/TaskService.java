@@ -61,10 +61,14 @@ public class TaskService {
                 .orElseThrow();
         task.setTaskStatus(taskStatus);
 
-        var taskDataUserId = taskCreateDTO.getAssigneeId();
+        long taskDataUserId = taskCreateDTO.getAssigneeId();
+       // taskDataUserId
         if (taskDataUserId != 0) {
             var assignee = userRepository.findById(taskDataUserId)
                     .orElseThrow();
+            task.setAssignee(assignee);
+        } else{
+            var assignee = userRepository.findById(1L).get();
             task.setAssignee(assignee);
         }
 
