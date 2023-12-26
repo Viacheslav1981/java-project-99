@@ -2,13 +2,14 @@ package hexlet.code.model;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -46,14 +47,18 @@ public class Task implements BaseEntity {
     @ManyToOne
     private TaskStatus taskStatus;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    //  @JoinColumn(name = "assignee_id", nullable = true)
-    //@JoinColumn(columnDefinition = "long", name = "assignee_id")
+    // @JsonIgnore
+    // @ManyToOne(optional = true, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "assignee_id", nullable = true)
+    // @Column(nullable = true, name = "assignee_id")
+    // @JoinColumn(nullable = true, columnDefinition = "integer", name = "assignee_id")
     // @Column(nullable=true)
     // @ManyToOne(fetch = FetchType.LAZY)
 
     //@Column(nullable = true)
     // @ManyToOne(cascade = CascadeType.MERGE)
+    //@Column(nullable = true)
     private User assignee;
     //  private JsonNullable<User> assignee;
     @ManyToMany(cascade = CascadeType.MERGE,
