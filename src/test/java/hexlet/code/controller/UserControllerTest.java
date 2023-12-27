@@ -18,6 +18,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.HashMap;
+
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
@@ -157,6 +159,25 @@ public class UserControllerTest {
         assertThat(user.getFirstName()).isEqualTo(dto.getFirstName());
         assertThat(user.getLastName()).isEqualTo(dto.getLastName());
         assertThat(user.getEmail()).isEqualTo(dto.getEmail());
+
+    }
+
+    @Test
+    public void testUpdateCheck() throws Exception {
+        //  var request = put("/api/users/" + testUser.getId()).with(token)
+        //         .contentType(MediaType.APPLICATION_JSON)
+        //          .content(om.writeValueAsString(data));
+
+        var data = new HashMap<String, String>();
+        data.put("firstName", "New name");
+
+        var request = put("/api/users/" + testUser.getId()).with(token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(om.writeValueAsString(data));
+
+
+        mockMvc.perform(request)
+                .andExpect(status().isOk());
 
     }
 }

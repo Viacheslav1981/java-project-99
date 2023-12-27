@@ -1,8 +1,6 @@
 package hexlet.code.dto.user;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +12,7 @@ public class UserUpdateDTO {
     private String firstName;
     private String lastName;
 
-    @NotNull(message = "Password must be longer than 3 characters")
-    @Size(min = 3)
+   // @NotNull(message = "Password must be longer than 3 characters")
+  //  @Size(min = 3)
     private String password;
 }
