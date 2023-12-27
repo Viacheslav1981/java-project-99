@@ -9,7 +9,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -49,8 +48,9 @@ public class Task implements BaseEntity {
 
     // @JsonIgnore
     // @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "assignee_id", nullable = true)
+    // @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
+    // @JoinColumn(name = "assignee_id", nullable = true)
     // @Column(nullable = true, name = "assignee_id")
     // @JoinColumn(nullable = true, columnDefinition = "integer", name = "assignee_id")
     // @Column(nullable=true)

@@ -72,17 +72,22 @@ public class TaskService {
                 .orElseThrow();
         task.setTaskStatus(taskStatus);
 
-      //  var taskDataUserId = taskCreateDTO.getAssigneeId();
-      //  if (taskDataUserId != null) {
+        var taskDataUserId = taskCreateDTO.getAssigneeId();
+        if (taskDataUserId == null) {
+            var assignee = userRepository.findByEmail("hexlet@example.com")
+                    .orElseThrow();
+            task.setAssignee(assignee);
+        }
+        //  if (taskDataUserId != null) {
         //    var assignee = userRepository.findById(taskDataUserId)
-         //           .orElseThrow();
-         //   task.setAssignee(assignee);
+        //           .orElseThrow();
+        //   task.setAssignee(assignee);
 
-    //    } else {
-      //      var assignee = userRepository.findById(1L).orElseThrow();
-          //  User user = new User();
-      //      task.setAssignee(assignee);
-     //   }
+        //    } else {
+        //      var assignee = userRepository.findById(1L).orElseThrow();
+        //  User user = new User();
+        //      task.setAssignee(assignee);
+        //   }
 
         taskRepository.save(task);
         return taskMapper.map(task);
