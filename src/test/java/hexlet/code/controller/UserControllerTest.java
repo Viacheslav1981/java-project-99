@@ -164,9 +164,6 @@ public class UserControllerTest {
 
     @Test
     public void testUpdateCheck() throws Exception {
-        //  var request = put("/api/users/" + testUser.getId()).with(token)
-        //         .contentType(MediaType.APPLICATION_JSON)
-        //          .content(om.writeValueAsString(data));
 
         var data = new HashMap<String, String>();
         data.put("firstName", "New name");

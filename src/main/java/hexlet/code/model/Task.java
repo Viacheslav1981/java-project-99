@@ -51,16 +51,8 @@ public class Task implements BaseEntity {
     // @ManyToOne(cascade = CascadeType.MERGE)
     @ManyToOne
     // @JoinColumn(name = "assignee_id", nullable = true)
-    // @Column(nullable = true, name = "assignee_id")
-    // @JoinColumn(nullable = true, columnDefinition = "integer", name = "assignee_id")
-    // @Column(nullable=true)
-    // @ManyToOne(fetch = FetchType.LAZY)
 
-    //@Column(nullable = true)
-    // @ManyToOne(cascade = CascadeType.MERGE)
-    //@Column(nullable = true)
     private User assignee;
-    //  private JsonNullable<User> assignee;
     @ManyToMany(cascade = CascadeType.MERGE,
             fetch = FetchType.EAGER)
     private Set<Label> labels;

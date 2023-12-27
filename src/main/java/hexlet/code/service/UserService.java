@@ -8,7 +8,6 @@ import hexlet.code.exception.ResourceNotFoundException;
 import hexlet.code.mapper.UserMapper;
 import hexlet.code.repository.UserRepository;
 import hexlet.code.utils.UserUtils;
-//import jakarta.validation.ConstraintViolationException;
 import hexlet.code.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,23 +70,8 @@ public class UserService {
     }
 
     public void delete(Long id) {
-        /*
-        var user = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format("User with id %s not found", id)));
-        if (userUtils.getCurrentUser().getId() != id) {
-            throw new AccessUserDeniedException("You do not have enough privileges to update this user");
-        }
-        var userTasks = user.getTasks();
-        if (userTasks.isEmpty()) {
-            userRepository.deleteById(id);
-        } else {
-            throw new ConstraintViolationException(String.format("User with id %s has active tasks", id));
-        }
-
-         */
         userRepository.deleteById(id);
     }
-
 
 
 }

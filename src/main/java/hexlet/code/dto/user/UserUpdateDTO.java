@@ -11,8 +11,5 @@ public class UserUpdateDTO {
     private String email;
     private String firstName;
     private String lastName;
-
-   // @NotNull(message = "Password must be longer than 3 characters")
-  //  @Size(min = 3)
     private String password;
 }
