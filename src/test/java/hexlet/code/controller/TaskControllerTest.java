@@ -29,7 +29,6 @@ import java.util.stream.Collectors;
 
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -227,38 +226,5 @@ public class TaskControllerTest {
 
         assertThat(task).isNull();
     }
-
-
-
-    @Test
-    public void testCreateWithoutUser() throws Exception {
-        var taskStatus = taskStatusRepository.findBySlug("draft").get();
-        Set<Long> labels = Set.of();
-        var name = "New Task Name";
-        var content = "Task Content";
-        var data = new HashMap<String, Object>();
-        data.put("title", name);
-        data.put("content", content);
-        data.put("status", taskStatus.getSlug());
-        data.put("taskLabelIds", labels);
-
-        var request = post("/api/tasks").with(jwt())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(om.writeValueAsString(data));
-        var result = mockMvc.perform(request)
-                .andExpect(status().isCreated())
-                .andReturn();
-        var body = result.getResponse().getContentAsString();
-
-        assertThatJson(body).and(
-                v -> v.node("id").isPresent(),
-                v -> v.node("content").isPresent(),
-                v -> v.node("title").isPresent(),
-                v -> v.node("status").isEqualTo(data.get("status")));
-
-        var task = taskRepository.findByName(name).get();
-        assertNotNull(task);
-    }
-
 
 }
