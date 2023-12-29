@@ -32,7 +32,8 @@ public class UserController {
     private final UserRepository userRepository;
     private final UserService userService;
 
-    private static final String ONLY_OWNER_BY_ID = "@userRepository.findById(#id).get() .getEmail() == authentication.getName()";
+    private static final String ONLY_OWNER_BY_ID = "@userRepository.findById(#id).get() " +
+            ".getEmail() == authentication.getName()";
 
     @GetMapping(path = "/users")
     @ResponseStatus(HttpStatus.OK)
