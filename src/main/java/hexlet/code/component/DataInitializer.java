@@ -48,10 +48,10 @@ public class DataInitializer implements ApplicationRunner {
             generatedTaskStatus("ToPublish", "to_publish");
             generatedTaskStatus("Published", "published");
 
-            generateLabels("feature");
-            generateLabels("bug");
 
         }
+        generateLabels("feature");
+        generateLabels("bug");
 
     }
 

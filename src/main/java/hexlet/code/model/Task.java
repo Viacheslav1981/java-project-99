@@ -2,14 +2,15 @@ package hexlet.code.model;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Table;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
 
+import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -28,6 +29,8 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "tasks")
 @EntityListeners(AuditingEntityListener.class)
+@Transactional
+
 public class Task implements BaseEntity {
 
     @Id
@@ -46,12 +49,7 @@ public class Task implements BaseEntity {
     @ManyToOne
     private TaskStatus taskStatus;
 
-    // @JsonIgnore
-    // @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    // @ManyToOne(cascade = CascadeType.MERGE)
-    @ManyToOne
-    // @JoinColumn(name = "assignee_id", nullable = true)
-
+    @ManyToOne(cascade = CascadeType.MERGE)
     private User assignee;
     @ManyToMany(cascade = CascadeType.MERGE,
             fetch = FetchType.EAGER)

@@ -83,9 +83,6 @@ public class TaskService {
             task.setTaskStatus(taskStatus);
 
         }
-        //   var taskStatus = taskStatusRepository.findBySlug(String.valueOf(taskStatusSlug))
-        //            .orElseThrow();
-        //    task.setTaskStatus(taskStatus);
 
         var taskDataUserId = taskUpdateDTO.getAssigneeId();
         if (taskDataUserId != null) {

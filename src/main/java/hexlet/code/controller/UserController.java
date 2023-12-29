@@ -7,8 +7,10 @@ import hexlet.code.repository.UserRepository;
 import hexlet.code.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,8 +28,11 @@ import java.util.List;
 @AllArgsConstructor
 public class UserController {
 
+    @Autowired
     private final UserRepository userRepository;
     private final UserService userService;
+
+    private static final String ONLY_OWNER_BY_ID = "@userRepository.findById(#id).get() .getEmail() == authentication.getName()";
 
     @GetMapping(path = "/users")
     @ResponseStatus(HttpStatus.OK)
@@ -57,6 +62,7 @@ public class UserController {
         return userService.update(userData, id);
     }
 
+    @PreAuthorize(ONLY_OWNER_BY_ID)
     @DeleteMapping(path = "/users/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable long id) {
