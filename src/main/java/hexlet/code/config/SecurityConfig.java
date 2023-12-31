@@ -9,7 +9,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -20,11 +20,13 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
+import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.POST;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+
 public class SecurityConfig {
     @Autowired
     private JwtDecoder jwtDecoder;
@@ -52,6 +54,9 @@ public class SecurityConfig {
                         .requestMatchers(mvcMatcherBuilder.pattern("/v3/**")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern("/swagger-ui/***")).permitAll()
                         .requestMatchers(mvcMatcherBuilder.pattern(POST, "/api/users")).permitAll()
+
+                        .requestMatchers(mvcMatcherBuilder.pattern(DELETE, "/api/users/{id}")).permitAll()
+
 
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

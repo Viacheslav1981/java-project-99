@@ -34,6 +34,8 @@ public class UserController {
 
     private static final String ONLY_OWNER_BY_ID = "@userRepository.findById(#id).get() "
             + ".getEmail() == authentication.getName()";
+    // private static final String ONLY_OWNER_BY_ID = "@userUtils.getCurrentUser().getId() == #id";
+
 
     @GetMapping(path = "/users")
     @ResponseStatus(HttpStatus.OK)
@@ -58,15 +60,17 @@ public class UserController {
 
     @PutMapping(path = "/users/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize(ONLY_OWNER_BY_ID)
     public UserDTO update(@PathVariable long id, @RequestBody @Valid UserUpdateDTO userData) {
 
         return userService.update(userData, id);
     }
 
-    @PreAuthorize(ONLY_OWNER_BY_ID)
     @DeleteMapping(path = "/users/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize(ONLY_OWNER_BY_ID)
     public void delete(@PathVariable long id) {
+        System.out.println("test delete");
         userService.delete(id);
     }
 }
